@@ -6,61 +6,70 @@ import java.util.Scanner;
 public class Starter {
 
 	public static void main(String[] args) throws Exception {
+		Scanner int_scanner = new Scanner(System.in);
+		Random num = new Random();
 
-		String[] elements = { "Fire", "Water", "Grass" };
+		String[] elements = { "ほのお", "みず", "くさ" };
 		String[] elementsEmoji = { "🔥", "💦", "🍁" };
 
-		System.out.println("オーキド博士： 「そこに3匹ポケモンがいるじゃろう。」");
-		Thread.sleep(1000);
-		System.out.println("オーキド博士： 「3匹しかのこっとらんがおまえに1匹やろう！」");
-		Thread.sleep(1000);
-		System.out.println("オーキド博士： 「さ！選べ！」");
+		System.out.println("オーキド博士：「そこに3匹ポケモンがいるじゃろう！」");
+		Thread.sleep(2000);
+		System.out.println("オーキド博士：「3匹しかのこっとらんがおまえに1匹やろう！」");
+		Thread.sleep(2000);
+		System.out.println("オーキド博士：「さ！選べ！」");
+		System.out.println();
+		Thread.sleep(2000);
 		for (int i = 0; i < elements.length; i++) {
 			System.out.println((i + 1) + ". " + elements[i]);
 		}
 
-		Scanner str_scanner = new Scanner(System.in);
-		System.out.println();
-		System.out.println();
-		int playerPoke = str_scanner.nextInt();
+		// Choose your Pokémon!
+		int playerPoke = int_scanner.nextInt();
 
-		String selectedType;
-		String pokeName;
-		String wildSelected;
-		String wildPokeName;
-		String pokeEmoji;
-		String elementIcon;
+		String selectedType = "";
+		String pokeName = "";
+		String wildSelected = "";
+		String wildPokeName = "";
+		String pokeEmoji = "";
+		String elementIcon = "";
 
-		switch (playerPoke) {
-		case 1:
-			selectedType = "Fire";
-			pokeName = "ヒトカゲ";
-			pokeEmoji = "🦎";
-			elementIcon = elementsEmoji[playerPoke - 1];
-
-			break;
-		case 2:
-			selectedType = "Water";
-			pokeName = "ゼニガメ";
-			pokeEmoji = "🐢";
-			elementIcon = elementsEmoji[playerPoke - 1];
-
-			break;
-		case 3:
-			selectedType = "Grass";
-			pokeName = "フシギダネ";
-			pokeEmoji = "🐸";
-			elementIcon = elementsEmoji[playerPoke - 1];
-			break;
-		default:
-			System.out.println("Invalid choice. Please try again.");
-			return;
+		boolean isValidChoice = false;
+		while (!isValidChoice) {
+			switch (playerPoke) {
+			case 1:
+				selectedType = "ほのお";
+				pokeName = "ヒトカゲ";
+				pokeEmoji = "🦎";
+				elementIcon = elementsEmoji[playerPoke - 1];
+				isValidChoice = true;
+				break;
+			case 2:
+				selectedType = "みず";
+				pokeName = "ゼニガメ";
+				pokeEmoji = "🐢";
+				elementIcon = elementsEmoji[playerPoke - 1];
+				isValidChoice = true;
+				break;
+			case 3:
+				selectedType = "くさ";
+				pokeName = "フシギダネ";
+				pokeEmoji = "🐸";
+				elementIcon = elementsEmoji[playerPoke - 1];
+				isValidChoice = true;
+				break;
+			default:
+				System.out.println("無効な選択肢です。もう一度やり直してください。");
+				playerPoke = int_scanner.nextInt();
+				break;
+			}
 		}
+		Thread.sleep(1000);
 
-		// Display the player's selection
-		System.out.println(pokeName + " " + pokeEmoji + "！君にきめた！");
+		// Display the player's selection.
+		System.out.println(pokeName + " " + pokeEmoji + "！キミにきめた！");
+		System.out.println();
+		Thread.sleep(1000);
 
-		Random num = new Random();
 		int wildPokeIndex = num.nextInt(elements.length);
 		wildSelected = elements[wildPokeIndex];
 		String[] wildEmoji = { "🐕‍🦺", "🌟", "🌱" };
@@ -70,19 +79,21 @@ public class Starter {
 		String wildPokeEmoji = wildEmoji[wildPokeIndex];
 		String wildPokeElements = elementsEmoji[wildPokeIndex];
 
-		Thread.sleep(1000);
-		System.out.println("あ！野生の" + wildPokeName + " " + wildPokeEmoji + " が飛びだしてきた！");
-		System.out.println();
-		Thread.sleep(1000);
-		System.out.println("ゆけっ！" + pokeName + " " + pokeEmoji + "！");
-		Thread.sleep(1000);
-		System.out.println("どうする？");
-		System.out.println("1.  たたかう");
-		System.out.println("2. にげる（ゲームオーバー）");
-		System.out.println();
+		for (int i = 0; i < 10; i++) {
+			System.out.print("■ ");
+			Thread.sleep(500);
+		}
 		System.out.println();
 
-		Scanner int_scanner = new Scanner(System.in);
+		System.out.println("あ！野生の" + wildPokeName + " " + wildPokeEmoji + " が飛びだしてきた！");
+		Thread.sleep(2000);
+		System.out.println("ゆけっ！" + pokeName + " " + pokeEmoji + "！");
+		System.out.println();
+		Thread.sleep(2000);
+		System.out.println("どうする？");
+		System.out.println("1. たたかう");
+		System.out.println("2. にげる（ゲームオーバー）");
+
 		int playerAction = int_scanner.nextInt();
 
 		boolean continueBattle = true;
@@ -113,7 +124,9 @@ public class Starter {
 				if (battleDecision == 1) {
 					int damage = num.nextInt(3 * 2 + 1) - 3 + 10;
 					enemyHP -= damage;
-					System.out.println(pokeName + "の物理技！" + damage + "ダメージをあたえた！");
+					System.out.print(pokeName + "の物理技！");
+					Thread.sleep(2000);
+					System.out.println(damage + "ダメージをあたえた！");
 					System.out.println();
 
 					// Elemental effectiveness and weakness logic.
@@ -121,39 +134,44 @@ public class Starter {
 					int damage = num.nextInt(3 * 2 + 1) - 3 + 10;
 
 					// Super effective.
-					if (selectedType.equals("Grass") && wildSelected.equals("Water")
-							|| selectedType.equals("Water") && wildSelected.equals("Fire")
-							|| selectedType.equals("Fire") && wildSelected.equals("Grass")) {
+					if (selectedType.equals("くさ") && wildSelected.equals("みず")
+							|| selectedType.equals("みず") && wildSelected.equals("ほのお")
+							|| selectedType.equals("ほのお") && wildSelected.equals("くさ")) {
 						damage *= 1.5;
 						enemyHP -= damage;
-						System.out.println(pokeName + "の特殊技！" + elementIcon + " " + damage + "ダメージをあたえた！");
-						Thread.sleep(1000);
+						System.out.print(pokeName + "の特殊技！" + elementIcon);
+						Thread.sleep(2000);
+						System.out.println(" " + damage + "ダメージをあたえた！");
+						Thread.sleep(2000);
 						System.out.println("効果はバツグンだ！");
 						System.out.println();
 
 						// Not so effective…
-					} else if (selectedType.equals("Fire") && wildSelected.equals("Water")
-							|| selectedType.equals("Water") && wildSelected.equals("Grass")
-							|| selectedType.equals("Grass") && wildSelected.equals("Fire")) {
+					} else if (selectedType.equals("ほのお") && wildSelected.equals("みず")
+							|| selectedType.equals("みず") && wildSelected.equals("くさ")
+							|| selectedType.equals("くさ") && wildSelected.equals("ほのお")) {
 						damage *= 0.5;
 						enemyHP -= damage;
-						System.out.println(pokeName + "の特殊技！" + elementIcon + " " + damage + "ダメージをあたえた！");
-						Thread.sleep(1000);
+						System.out.print(pokeName + "の特殊技！" + elementIcon);
+						Thread.sleep(2000);
+						System.out.println(" " + damage + "ダメージをあたえた！");
+						Thread.sleep(2000);
 						System.out.println("効果は今ひとつのようだ……");
 						System.out.println();
 
-						// Normal..(Same element)
+						// Normal (same element).
 					} else {
-
 						enemyHP -= damage;
-						System.out.println(pokeName + "の特殊技！" + elementIcon + " " + damage + "ダメージをあたえた！");
+						System.out.print(pokeName + "の特殊技！" + elementIcon);
+						Thread.sleep(2000);
+						System.out.println(" " + damage + "ダメージをあたえた！");
 						System.out.println();
-
 					}
 
 					// Heal.
 				} else if (battleDecision == 3 && healCount > 0) {
 					System.out.println("キズぐずりを使った！");
+					Thread.sleep(2000);
 					HP += 15;
 					if (HP > 100) {
 						int heal = 15 - (HP - 100);
@@ -166,6 +184,10 @@ public class Starter {
 					}
 					healCount--;
 
+				} else if (battleDecision == 3 && healCount == 0) {
+					System.out.println("キズぐずりはもうない！");
+					continue;
+
 					// Run away.
 				} else if (battleDecision == 4) {
 					Thread.sleep(1000);
@@ -174,10 +196,14 @@ public class Starter {
 					break;
 				}
 
+				// Win condition. Player defeats enemy.
 				if (enemyHP <= 0) {
+					Thread.sleep(2000);
 					System.out.println("敵の" + wildPokeName + "はたおれた！");
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					System.out.println("やった～！");
+					Thread.sleep(2000);
+					System.out.println(pokeName + "は" + (num.nextInt(50 * 2 + 1) - 50 + 300) + "経験値をもらった！");
 					continueBattle = false;
 					break;
 				}
@@ -190,6 +216,7 @@ public class Starter {
 					enemyHP += 15;
 					enemyHealCount--;
 					System.out.println("敵の" + wildPokeName + "はオラスベリーを食べた！");
+					Thread.sleep(2000);
 					System.out.println("体力が15HP回復した！");
 					System.out.println();
 
@@ -200,7 +227,9 @@ public class Starter {
 					if (enemyAttack == 0) {
 						int enemyDamage = num.nextInt(3 * 2 + 1) - 3 + 10;
 						HP -= enemyDamage;
-						System.out.println("敵の" + wildPokeName + "の物理技！" + enemyDamage + "ダメージをうけた！");
+						System.out.print("敵の" + wildPokeName + "の物理技！");
+						Thread.sleep(2000);
+						System.out.println(enemyDamage + "ダメージをうけた！");
 						System.out.println();
 
 					} else if (enemyAttack == 1) {
@@ -208,30 +237,44 @@ public class Starter {
 
 						// Elemental effectiveness and weakness logic.
 						// Super effective
-						if (wildSelected.equals("Grass") && selectedType.equals("Water")
-								|| wildSelected.equals("Water") && selectedType.equals("Fire")
-								|| wildSelected.equals("Fire") && selectedType.equals("Grass")) {
+						if (wildSelected.equals("くさ") && selectedType.equals("みず")
+								|| wildSelected.equals("みず") && selectedType.equals("ほのお")
+								|| wildSelected.equals("ほのお") && selectedType.equals("くさ")) {
 							enemyDamage *= 1.5;
 							HP -= enemyDamage;
-							System.out.println("敵の" + wildPokeName + "の特殊技！" + enemyDamage + "ダメージをうけた！");
-							Thread.sleep(1000);
+							System.out.print("敵の" + wildPokeName + "の特殊技！" + wildPokeElements);
+							Thread.sleep(2000);
+							System.out.println(" " + enemyDamage + "ダメージをうけた！");
+							Thread.sleep(2000);
 							System.out.println("効果はバツグンだ！");
 							System.out.println();
 
 							// Not so effective…
-						} else if (wildSelected.equals("Fire") && selectedType.equals("Water")
-								|| wildSelected.equals("Water") && selectedType.equals("Grass")
-								|| wildSelected.equals("Grass") && selectedType.equals("Fire")) {
+						} else if (wildSelected.equals("ほのお") && selectedType.equals("みず")
+								|| wildSelected.equals("みず") && selectedType.equals("くさ")
+								|| wildSelected.equals("くさ") && selectedType.equals("ほのお")) {
 							enemyDamage *= 0.5;
 							HP -= enemyDamage;
-							System.out.println("敵の" + wildPokeName + "の特殊技！" + enemyDamage + "ダメージをうけた！");
-							Thread.sleep(1000);
+							System.out.print("敵の" + wildPokeName + "の特殊技！" + wildPokeElements);
+							Thread.sleep(2000);
+							System.out.println(" " + enemyDamage + "ダメージをうけた！");
+							Thread.sleep(2000);
 							System.out.println("効果は今ひとつのようだ……");
+							System.out.println();
+
+							// Normal (same element).
+						} else {
+							HP -= enemyDamage;
+							System.out.print("敵の" + wildPokeName + "の特殊技！" + wildPokeElements);
+							Thread.sleep(2000);
+							System.out.println(" " + enemyDamage + "ダメージをうけた！");
+							Thread.sleep(2000);
 							System.out.println();
 						}
 					}
 				}
 
+				// Lose condition. Enemy defeats player.
 				if (HP <= 0) {
 					System.out.println(pokeName + "はたおれた。 ゲームオーバーだ……");
 					continueBattle = false;
